@@ -3,7 +3,13 @@ import sequelize from "../connect"
 
 class User extends Model{}
 User.init({
-    username: {
+    fname:{
+        type:DataTypes.STRING
+    },
+    lname:{
+        type:DataTypes.STRING
+    },
+    email: {
 		type: DataTypes.STRING,
 		allowNull: false,
 		unique: true,
@@ -11,23 +17,17 @@ User.init({
 	password: {
 		type: DataTypes.STRING,
 		allowNull: false,
-        unique:false
 	},
-    fname:{
-        type:DataTypes.STRING,
-        allowNull:false,
-        unique:false
-    },
-    lname:{
-        type:DataTypes.STRING,
-        allowNull:false,
-        unique:false
-    },
-    actor:{
-        type:DataTypes.STRING,
-        allowNull:false,
-        unique:true
-    }
+	tokenVersion: {
+		type: DataTypes.INTEGER,
+		allowNull: false,
+	},
+	resetPasswordCode: {
+		type: DataTypes.INTEGER,
+	},
+	resetCodeExpiredIn: {
+		type: DataTypes.BIGINT,
+	}
 },
 {
     sequelize, modelName: 'user'
