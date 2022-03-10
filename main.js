@@ -10,7 +10,7 @@ const serverRun = async() => {
     app.listen(process.env.PORT, "0.0.0.0", () => {
         console.log(`🚀 Server is running on 0.0.0.0:${process.env.PORT}`)
     })
-
+    
 }
 
 serverRun()
