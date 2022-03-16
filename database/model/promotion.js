@@ -16,6 +16,10 @@ Promotion.init({
         type:DataTypes.STRING,
         allowNull:false
     },
+    price:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
     to:{
         type:DataTypes.STRING,
         allowNull:false

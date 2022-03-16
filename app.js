@@ -7,22 +7,124 @@ import bcrypt from "bcryptjs"
 import { createToken } from "./utils/createToken";
 
 import  auth  from "./middleware/auth"
+import res, { send } from "express/lib/response";
+import { where } from "sequelize/dist";
 
 const app = express()
 app.use(cors())
 app.use(express.json())
 
+app.patch('/promotion', async(req, res) => {
+	try{
+		if(req.body.title){
+			await Promotion.update(
+				{
+					title:req.body.title
+				},
+				{
+					where:{
+						id:req.body.id
+					}
+				}
+			)
+		}
+		if(req.body.Description){
+			await Promotion.update(
+				{
+					Description:req.body.Description
+				},
+				{
+					where:{
+						id:req.body.id
+					}
+				}
+			)
+		}
+		if(req.body.price){
+			await Promotion.update(
+				{
+					price:req.body.price
+				},
+				{
+					where:{
+						id:req.body.id
+					}
+				}
+			)
+		}
+		if(req.body.to){
+			await Promotion.update(
+				{
+					to:req.body.to
+				},
+				{
+					where:{
+						id:req.body.id
+					}
+				}
+			)
+		}
+		if(req.body.end){
+			await Promotion.update(
+				{
+					end:req.body.end
+				},
+				{
+					where:{
+						id:req.body.id
+					}
+				}
+			)
+		}
+		
 
+
+		res.send({message:"updated"})
+
+	}catch(error){
+		return res.send({message:"error"})
+	}
+})
 
 app.post('/promotion', async(req, res) => {
-	console.log(req.body);
-	const promotion = await Promotion.create(req.body)
-	res.status(200).json(
-		{
-			promotion
-		}
-	)
+	try{
+		console.log(req.body);
+		const promotion = await Promotion.create(req.body)
+		res.send({message:"OK"})
+	}catch(error){
+		res.send({message:"ไม่สามารถเพิ่มโปรโมชันได้"})
+		console.log("เกิดข้อผิดพลาด");
+	}
+	
 })
+
+app.delete('/promotion', async(req, res) => {
+	try{
+		console.log(req.body.id);
+		await Promotion.destroy({
+			where:{
+				id:req.body.id
+			}
+		})
+		res.send({message:"success"})
+
+	}catch(error){
+		return res.send({message:"error"})
+	}
+})
+app.patch('/promotion', async(req, res) => {
+	try{
+		await Promotion.update({
+			
+		})
+
+	}catch(error){
+
+	}
+})
+
+
+
 // get all promotion
 app.get('/promotion', async(req, res) => {
 	const pro = await Promotion.findAll()
